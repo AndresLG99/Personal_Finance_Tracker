@@ -5,8 +5,8 @@ options = ["Open & Save Transactions",
            "Visualize",
            "Exit"]
 
-csv_manipulation = ["Import CSV",
-                    "Save CSV"]
+csv_manipulation = ["Open saved transactions",
+                    "Save transactions"]
 
 show = ["View all transactions",
         "View transactions by date range"]
@@ -52,15 +52,48 @@ def display_second_tier_menu(choice):
     elif choice == 6:
         print("=" * 20 + " SEE YOU LATER " + "=" * 20)
 
-def ask_for_option():
+def main_menu_choice():
     display_menu()
     choice = input("Enter your choice: ")
 
     while not choice.isdigit():
         print("Please enter a valid option.")
         choice = input("Enter your choice: ")
-    while int(choice) not in range(1, 7):
+    while int(choice) not in range(len(options) + 1):
         print("Please enter a valid option.")
         choice = input("Enter your choice: ")
 
     return int(choice)
+
+def second_tier_menu_choice(first_choice):
+    choice = input("Enter your choice: ")
+
+    while not choice.isdigit():
+        print("Please enter a valid option.")
+        choice = input("Enter your choice: ")
+    if first_choice == 1:
+        while int(choice) not in range(len(csv_manipulation) + 1):
+            print("Please enter a valid option.")
+            choice = input("Enter your choice: ")
+    elif first_choice == 2:
+        while int(choice) not in range(len(show) + 1):
+            print("Please enter a valid option.")
+            choice = input("Enter your choice: ")
+    elif first_choice == 3:
+        while int(choice) not in range(len(edit) + 1):
+            print("Please enter a valid option.")
+            choice = input("Enter your choice: ")
+    elif first_choice == 4:
+        while int(choice) not in range(len(analyze) + 1):
+            print("Please enter a valid option.")
+            choice = input("Enter your choice: ")
+    elif first_choice == 5:
+        while int(choice) not in range(len(visualize) + 1):
+            print("Please enter a valid option.")
+            choice = input("Enter your choice: ")
+
+    return int(choice)
+
+x = main_menu_choice()
+display_second_tier_menu(x)
+second_tier_menu_choice(x)
