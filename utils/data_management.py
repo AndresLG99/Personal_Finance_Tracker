@@ -30,9 +30,12 @@ def display_menu(menu):
         print(f"{index + 1}. {option}")
 
 def display_files():
+    files_list = []
     for index, file in enumerate(os.listdir(directory)):
         if os.path.isfile(os.path.join(directory, file)):
+            files_list.append(file)
             print(f"{index + 1}. {file}")
+    return files_list
 
 def open_csv(filename):
     df = pd.read_csv(f"{directory}\\{filename}")
@@ -42,9 +45,9 @@ def show_all_transactions(df):
     print(df)
 
 def show_filtered_transactions(df, init_date, end_date):
-    df = df[df["Date"] >= init_date]
-    df = df[df["Date"] <= end_date]
-    return df
+    df2 = df[df["Date"] >= init_date]
+    df3 = df2[df2["Date"] <= end_date]
+    print(df3)
 
 def add_transaction(df, param1, param2, param3, param4, param5):
     new_transaction = {"Date": param1,
@@ -65,3 +68,4 @@ def delete_transaction(df, index):
 
 def save_csv(df, filename):
     df.to_csv(filename, index=False)
+    print("File saved successfully!")
