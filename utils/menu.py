@@ -93,7 +93,3 @@ def second_tier_menu_choice(first_choice):
             choice = input("Enter your choice: ")
 
     return int(choice)
-
-x = main_menu_choice()
-display_second_tier_menu(x)
-second_tier_menu_choice(x)
