@@ -22,7 +22,9 @@ analyze_menu_options = ["Analyze spending by category",
                          "Analyze average monthly spending",
                          "Analyze top spending category"]
 
-directory = "C:\\Users\\andre\\Documents\\Data Science\\DS-201\\Final Project\\Code\\data"
+current_path = os.path.abspath(__file__)
+base_dir = os.path.dirname(os.path.dirname(current_path))
+directory = os.path.join(base_dir, "data")
 
 # FUNCTIONS
 def display_menu(menu):
