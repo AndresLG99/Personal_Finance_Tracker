@@ -8,4 +8,6 @@ from utils.menu import *
 
 
 # MAIN STRUCTURE
-display_second_tier_menu(ask_for_option())
+x = main_menu_choice()
+display_second_tier_menu(x)
+second_tier_menu_choice(x)
