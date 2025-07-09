@@ -42,6 +42,7 @@ def display_files():
 
 def open_csv(filename):
     df = pd.read_csv(f"{directory}\\{filename}")
+    print("File loaded successfully!")
     return df
 
 def show_all_transactions(df):
@@ -59,14 +60,17 @@ def add_transaction(df, param1, param2, param3, param4, param5):
                        "Amount": param4,
                        "Type": param5}
     df_new = df.loc[len(df)] = new_transaction
+    print("New transaction added successfully!")
     return df_new
 
 def edit_transaction(df, row_index, column_name, new_value):
     df.loc[row_index, column_name] = new_value
+    print("Transaction edited successfully!")
     return df
 
 def delete_transaction(df, index):
     df = df.drop([index, index])
+    print("Transaction deleted successfully!")
     return df
 
 def save_csv(df, filename):
