@@ -9,6 +9,7 @@ main_menu_options = ["Import",
                      "Modify",
                      "Analyze",
                      "Visualize",
+                     "Budget",
                      "Save",
                      "Exit"]
 
@@ -45,7 +46,7 @@ def display_files():
     return files_list
 
 def open_csv(filename):
-    df = pd.read_csv(f"{directory}\\{filename}")
+    df = pd.read_csv(f"{directory}\\{filename}", parse_dates=["Date"])
     print("File loaded successfully!")
     return df
 

@@ -2,6 +2,7 @@
 import os
 from utils.data_management import *
 from utils.data_analysis import *
+from utils.budget_management import *
 
 # INITIAL DATA STRUCTURES AND VARIABLES
 on_off = True
@@ -154,6 +155,46 @@ while on_off:
 
 
     elif first_choice == 6:
+        print("-" * 20 + " Budget Menu " + "-" * 20)
+        display_menu(budget_menu_options)
+        budget_choice = ask_choice(budget_menu_options)
+
+        if budget_choice == 1:
+            try:
+                bud_list = set_cat_budget(dataframe)
+                show_budgets(dataframe, bud_list)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
+
+        elif budget_choice == 2:
+            try:
+                cats_list = income_vs_expense_cats(dataframe)
+                show_budget_vs_real(dataframe, bud_list, cats_list)
+            except NameError:
+                print("\nYou haven't chosen any file yet or haven't set up a budget.")
+
+        elif budget_choice == 3:
+            print("-" * 20 + " Budget Visualization Menu " + "-" * 20)
+            display_menu(visualize_budget_menu_options)
+            visualize_budget_choice = ask_choice(visualize_budget_menu_options)
+
+            if visualize_budget_choice == 1:
+                income_vs_expense_graph(dataframe)
+
+            elif visualize_budget_choice == 2:
+                cats_list = income_vs_expense_cats(dataframe)
+                budget_vs_real_graph(dataframe, bud_list, cats_list)
+
+            elif visualize_budget_choice == 3:
+                cats_list = income_vs_expense_cats(dataframe)
+                percentage_distribution_graph(dataframe, cats_list)
+
+        while next_menu() == "no":
+            pass
+        clear_console()
+
+
+    elif first_choice == 7:
         print("-" * 20 + " Available Files " + "-" * 20)
         files_list = display_files()
         file_choice = ask_choice(files_list)
@@ -162,7 +203,8 @@ while on_off:
             pass
         clear_console()
 
-    elif first_choice == 7:
+
+    elif first_choice == 8:
         on_off = False
         clear_console()
         print()
