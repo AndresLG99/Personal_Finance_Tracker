@@ -61,8 +61,8 @@ def add_transaction(df, param1, param2, param3, param4, param5):
     df_new = df.loc[len(df)] = new_transaction
     return df_new
 
-def edit_transaction(df, row, column, new_value):
-    df.loc[row, column] = new_value
+def edit_transaction(df, row_index, column_name, new_value):
+    df.loc[row_index, column_name] = new_value
     return df
 
 def delete_transaction(df, index):
@@ -89,3 +89,31 @@ def ask_params():
     param4 = input("Enter the Amount: ")
     param5 = input("Enter the Type: ")
     return param1, param2, param3, param4, param5
+
+def row_index_list(df):
+    print("\nPlease choose a row index.\n")
+    index_list = df.index.tolist()
+    print(df)
+    return index_list
+
+def column_name_list(df):
+    column_list = df.columns.tolist()
+    for i, item in enumerate(column_list):
+        print(f"{i + 1}. {item}")
+    return column_list
+
+def ask_new_value(column):
+    if column == 1: #Date
+        new_value = ask_date()
+    elif column == 2: #Category
+        new_value = input("Enter the new Category: ")
+    elif column == 3: #Description
+        new_value = input("Enter the new Description: ")
+    elif column == 4: #Amount
+        try:
+            new_value = float(input("Enter the new Amount: "))
+        except ValueError:
+            print("Invalid value. Please try again.")
+    elif column == 5: #Type
+        new_value = input("Enter the new Type: ")
+    return new_value
