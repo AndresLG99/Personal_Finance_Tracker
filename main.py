@@ -58,6 +58,7 @@ while on_off:
     display_menu(main_menu_options)
     first_choice = ask_choice(main_menu_options)
 
+
     if first_choice == 1:
         print("-" * 20 + " Available Files " + "-" * 20)
         files_list = display_files()
@@ -66,6 +67,7 @@ while on_off:
         while next_menu() == "no":
             pass
         clear_console()
+
 
     elif first_choice == 2:
         print("-" * 20 + " Show Menu " + "-" * 20)
@@ -90,16 +92,19 @@ while on_off:
             pass
         clear_console()
 
+
     elif first_choice == 3:
         print("-" * 20 + " Modify Menu " + "-" * 20)
         display_menu(modify_menu_options)
         modify_choice = ask_choice(modify_menu_options)
+
         if modify_choice == 1:
             try:
                 x, y, z, a, b = ask_params()
                 add_transaction(dataframe, x, y, z, a, b)
             except NameError:
                 print("\nYou haven't chosen any file yet.")
+
         elif modify_choice == 2:
             try:
                 index_list = row_index_list(dataframe)
@@ -110,30 +115,43 @@ while on_off:
                 edit_transaction(dataframe,row_choice,column_list[column_choice - 1],new_value)
             except NameError:
                 print("\nYou haven't chosen any file yet.")
+
         elif modify_choice == 3:
             index_list2 = row_index_list(dataframe)
             row_choice2 = ask_choice(index_list2)
             dataframe = delete_transaction(dataframe,row_choice2)
+
         while next_menu() == "no":
             pass
         clear_console()
+
 
     elif first_choice == 4:
         print("-" * 20 + " Analyze Menu " + "-" * 20)
         display_menu(analyze_menu_options)
         analyze_choice = ask_choice(analyze_menu_options)
-        # MISSING CODE
+
         if analyze_choice == 1:
             try:
                 analyze_spending_by_category(dataframe)
             except NameError:
                 print("\nYou haven't chosen any file yet.")
+        # MISSING CODE
         while next_menu() == "no":
             pass
         clear_console()
 
+
     elif first_choice == 5:
-        pass
+        print("-" * 20 + " Visualize Menu " + "-" * 20)
+        display_menu(visualize_menu_options)
+        visualize_choice = ask_choice(visualize_menu_options)
+        # MISSING CODE
+
+        while next_menu() == "no":
+            pass
+        clear_console()
+
 
     elif first_choice == 6:
         print("-" * 20 + " Available Files " + "-" * 20)
@@ -149,6 +167,3 @@ while on_off:
         clear_console()
         print()
         print("=" * 20 + " THANK YOU " + "=" * 20)
-
-
-# BYE BYE
