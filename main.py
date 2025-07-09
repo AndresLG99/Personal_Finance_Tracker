@@ -190,15 +190,24 @@ while on_off:
             visualize_budget_choice = ask_choice(visualize_budget_menu_options)
 
             if visualize_budget_choice == 1:
-                income_vs_expense_graph(dataframe)
+                try:
+                    income_vs_expense_graph(dataframe)
+                except NameError:
+                    print("\nYou haven't chosen any file yet.")
 
             elif visualize_budget_choice == 2:
-                cats_list = income_vs_expense_cats(dataframe)
-                budget_vs_real_graph(dataframe, bud_list, cats_list)
+                try:
+                    cats_list = income_vs_expense_cats(dataframe)
+                    budget_vs_real_graph(dataframe, bud_list, cats_list)
+                except NameError:
+                    print("\nYou haven't chosen any file yet or haven't set up a budget.")
 
             elif visualize_budget_choice == 3:
-                cats_list = income_vs_expense_cats(dataframe)
-                percentage_distribution_graph(dataframe, cats_list)
+                try:
+                    cats_list = income_vs_expense_cats(dataframe)
+                    percentage_distribution_graph(dataframe, cats_list)
+                except NameError:
+                    print("\nYou haven't chosen any file yet.")
 
         while next_menu() == "no":
             pass
