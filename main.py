@@ -28,10 +28,25 @@ def next_menu():
         option = input("Continue? (yes/no): ").lower()
     return option
 
-def ask_dates():
-    initial_date = input("Enter your initial date (YYYY-MM-DD): ")
-    final_date = input("Enter your end date (YYYY-MM-DD): ")
-    return initial_date, final_date
+def ask_initial_date():
+    while True:
+        initial_date = input("Enter the Initial Date (YYYY-MM-DD): ")
+        try:
+            date = datetime.strptime(initial_date, "%Y-%m-%d")
+            date = date.date()
+            return date.strftime("%Y-%m-%d")
+        except ValueError:
+            print("Invalid date format. Please try again.")
+
+def ask_end_date():
+    while True:
+        end_date = input("Enter the End Date (YYYY-MM-DD): ")
+        try:
+            date = datetime.strptime(end_date, "%Y-%m-%d")
+            date = date.date()
+            return date.strftime("%Y-%m-%d")
+        except ValueError:
+            print("Invalid date format. Please try again.")
 
 # MAIN STRUCTURE
 user_name = user_name()
@@ -63,7 +78,8 @@ while on_off:
                 print("\nYou haven't chosen any file yet.")
 
         elif show_choice == 2:
-            first_date, second_date = ask_dates()
+            first_date = ask_initial_date()
+            second_date = ask_end_date()
             try:
                 show_filtered_transactions(dataframe,first_date,second_date)
             except NameError:
@@ -77,7 +93,16 @@ while on_off:
         print("-" * 20 + " Modify Menu " + "-" * 20)
         display_menu(modify_menu_options)
         modify_choice = ask_choice(modify_menu_options)
-        # MISSING CODE
+        if modify_choice == 1:
+            try:
+                x, y, z, a, b = ask_params()
+                add_transaction(dataframe, x, y, z, a, b)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
+        elif modify_choice == 2:
+            pass
+        elif modify_choice == 3:
+            pass
         while next_menu() == "no":
             pass
         clear_console()
@@ -98,7 +123,7 @@ while on_off:
         print("-" * 20 + " Available Files " + "-" * 20)
         files_list = display_files()
         file_choice = ask_choice(files_list)
-        save_csv(dataframe,file_choice)
+        save_csv(dataframe,files_list[file_choice - 1])
         while next_menu() == "no":
             pass
         clear_console()
