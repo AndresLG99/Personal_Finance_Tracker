@@ -100,7 +100,15 @@ while on_off:
             except NameError:
                 print("\nYou haven't chosen any file yet.")
         elif modify_choice == 2:
-            pass
+            try:
+                index_list = row_index_list(dataframe)
+                row_choice = ask_choice(index_list)
+                column_list = column_name_list(dataframe)
+                column_choice = ask_choice(column_list)
+                new_value = ask_new_value(column_choice)
+                edit_transaction(dataframe,row_choice,column_list[column_choice - 1],new_value)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
         elif modify_choice == 3:
             pass
         while next_menu() == "no":
@@ -110,7 +118,7 @@ while on_off:
     elif first_choice == 4:
         print("-" * 20 + " Analyze Menu " + "-" * 20)
         display_menu(analyze_menu_options)
-        modify_choice = ask_choice(analyze_menu_options)
+        analyze_choice = ask_choice(analyze_menu_options)
         # MISSING CODE
         while next_menu() == "no":
             pass
