@@ -137,7 +137,18 @@ while on_off:
                 analyze_spending_by_category(dataframe)
             except NameError:
                 print("\nYou haven't chosen any file yet.")
-        # MISSING CODE
+
+        elif analyze_choice == 2:
+            try:
+                analyze_average_monthly_spending(dataframe)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
+        elif analyze_choice == 3:
+            try:
+                analyze_top_spending_category(dataframe)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
+                
         while next_menu() == "no":
             pass
         clear_console()
