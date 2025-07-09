@@ -2,6 +2,7 @@
 import os
 from utils.data_management import *
 from utils.data_analysis import *
+from utils.budget_management import *
 
 # INITIAL DATA STRUCTURES AND VARIABLES
 on_off = True
@@ -58,6 +59,7 @@ while on_off:
     display_menu(main_menu_options)
     first_choice = ask_choice(main_menu_options)
 
+
     if first_choice == 1:
         print("-" * 20 + " Available Files " + "-" * 20)
         files_list = display_files()
@@ -66,6 +68,7 @@ while on_off:
         while next_menu() == "no":
             pass
         clear_console()
+
 
     elif first_choice == 2:
         print("-" * 20 + " Show Menu " + "-" * 20)
@@ -90,16 +93,19 @@ while on_off:
             pass
         clear_console()
 
+
     elif first_choice == 3:
         print("-" * 20 + " Modify Menu " + "-" * 20)
         display_menu(modify_menu_options)
         modify_choice = ask_choice(modify_menu_options)
+
         if modify_choice == 1:
             try:
                 x, y, z, a, b = ask_params()
                 add_transaction(dataframe, x, y, z, a, b)
             except NameError:
                 print("\nYou haven't chosen any file yet.")
+
         elif modify_choice == 2:
             try:
                 index_list = row_index_list(dataframe)
@@ -110,23 +116,28 @@ while on_off:
                 edit_transaction(dataframe,row_choice,column_list[column_choice - 1],new_value)
             except NameError:
                 print("\nYou haven't chosen any file yet.")
+
         elif modify_choice == 3:
             index_list2 = row_index_list(dataframe)
             row_choice2 = ask_choice(index_list2)
             dataframe = delete_transaction(dataframe,row_choice2)
+
         while next_menu() == "no":
             pass
         clear_console()
+
 
     elif first_choice == 4:
         print("-" * 20 + " Analyze Menu " + "-" * 20)
         display_menu(analyze_menu_options)
         analyze_choice = ask_choice(analyze_menu_options)
+
         if analyze_choice == 1:
             try:
                 analyze_spending_by_category(dataframe)
             except NameError:
                 print("\nYou haven't chosen any file yet.")
+
         elif analyze_choice == 2:
             try:
                 analyze_average_monthly_spending(dataframe)
@@ -137,14 +148,64 @@ while on_off:
                 analyze_top_spending_category(dataframe)
             except NameError:
                 print("\nYou haven't chosen any file yet.")
+                
         while next_menu() == "no":
             pass
         clear_console()
 
+
     elif first_choice == 5:
-        pass
+        print("-" * 20 + " Visualize Menu " + "-" * 20)
+        display_menu(visualize_menu_options)
+        visualize_choice = ask_choice(visualize_menu_options)
+        # MISSING CODE
+
+        while next_menu() == "no":
+            pass
+        clear_console()
+
 
     elif first_choice == 6:
+        print("-" * 20 + " Budget Menu " + "-" * 20)
+        display_menu(budget_menu_options)
+        budget_choice = ask_choice(budget_menu_options)
+
+        if budget_choice == 1:
+            try:
+                bud_list = set_cat_budget(dataframe)
+                show_budgets(dataframe, bud_list)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
+
+        elif budget_choice == 2:
+            try:
+                cats_list = income_vs_expense_cats(dataframe)
+                show_budget_vs_real(dataframe, bud_list, cats_list)
+            except NameError:
+                print("\nYou haven't chosen any file yet or haven't set up a budget.")
+
+        elif budget_choice == 3:
+            print("-" * 20 + " Budget Visualization Menu " + "-" * 20)
+            display_menu(visualize_budget_menu_options)
+            visualize_budget_choice = ask_choice(visualize_budget_menu_options)
+
+            if visualize_budget_choice == 1:
+                income_vs_expense_graph(dataframe)
+
+            elif visualize_budget_choice == 2:
+                cats_list = income_vs_expense_cats(dataframe)
+                budget_vs_real_graph(dataframe, bud_list, cats_list)
+
+            elif visualize_budget_choice == 3:
+                cats_list = income_vs_expense_cats(dataframe)
+                percentage_distribution_graph(dataframe, cats_list)
+
+        while next_menu() == "no":
+            pass
+        clear_console()
+
+
+    elif first_choice == 7:
         print("-" * 20 + " Available Files " + "-" * 20)
         files_list = display_files()
         file_choice = ask_choice(files_list)
@@ -153,7 +214,8 @@ while on_off:
             pass
         clear_console()
 
-    elif first_choice == 7:
+
+    elif first_choice == 8:
         on_off = False
         clear_console()
         print()

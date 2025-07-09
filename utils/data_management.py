@@ -9,6 +9,7 @@ main_menu_options = ["Import",
                      "Modify",
                      "Analyze",
                      "Visualize",
+                     "Budget",
                      "Save",
                      "Exit"]
 
@@ -22,6 +23,10 @@ modify_menu_options = ["Add a transaction",
 analyze_menu_options = ["Analyze spending by category",
                          "Analyze average monthly spending",
                          "Analyze top spending category"]
+
+visualize_menu_options = ["Monthly spending trend",
+                          "Spending by category",
+                          "Percentage distribution"]
 
 current_path = os.path.abspath(__file__)
 base_dir = os.path.dirname(os.path.dirname(current_path))
@@ -41,7 +46,8 @@ def display_files():
     return files_list
 
 def open_csv(filename):
-    df = pd.read_csv(f"{directory}\\{filename}")
+    df = pd.read_csv(f"{directory}\\{filename}", parse_dates=["Date"])
+    print("File loaded successfully!")
     return df
 
 def show_all_transactions(df):
@@ -59,14 +65,17 @@ def add_transaction(df, param1, param2, param3, param4, param5):
                        "Amount": param4,
                        "Type": param5}
     df_new = df.loc[len(df)] = new_transaction
+    print("New transaction added successfully!")
     return df_new
 
 def edit_transaction(df, row_index, column_name, new_value):
     df.loc[row_index, column_name] = new_value
+    print("Transaction edited successfully!")
     return df
 
 def delete_transaction(df, index):
     df = df.drop([index, index])
+    print("Transaction deleted successfully!")
     return df
 
 def save_csv(df, filename):
