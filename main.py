@@ -1,6 +1,7 @@
 # IMPORTS
 import os
 from utils.data_management import *
+from utils.data_analysis import *
 
 # INITIAL DATA STRUCTURES AND VARIABLES
 on_off = True
@@ -122,6 +123,11 @@ while on_off:
         display_menu(analyze_menu_options)
         analyze_choice = ask_choice(analyze_menu_options)
         # MISSING CODE
+        if analyze_choice == 1:
+            try:
+                analyze_spending_by_category(dataframe)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
         while next_menu() == "no":
             pass
         clear_console()
