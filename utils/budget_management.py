@@ -13,12 +13,6 @@ visualize_budget_menu_options = ["Monthly income vs. spending",
                                  "Category spending vs. budget",
                                  "Income & expense distribution"]
 
-#TESTING (ERASE LATER)
-current_path = os.path.abspath(__file__)
-base_dir = os.path.dirname(os.path.dirname(current_path))
-directory = os.path.join(base_dir, "data","sampledata3.csv")
-df1 = pd.read_csv(directory, parse_dates=["Date"])
-
 # FUNCTIONS
 def income_vs_expense_graph(df):
     df["Month"] = df["Date"].dt.to_period("M")
