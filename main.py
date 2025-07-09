@@ -122,10 +122,19 @@ while on_off:
         print("-" * 20 + " Analyze Menu " + "-" * 20)
         display_menu(analyze_menu_options)
         analyze_choice = ask_choice(analyze_menu_options)
-        # MISSING CODE
         if analyze_choice == 1:
             try:
                 analyze_spending_by_category(dataframe)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
+        elif analyze_choice == 2:
+            try:
+                analyze_average_monthly_spending(dataframe)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
+        elif analyze_choice == 3:
+            try:
+                analyze_top_spending_category(dataframe)
             except NameError:
                 print("\nYou haven't chosen any file yet.")
         while next_menu() == "no":
