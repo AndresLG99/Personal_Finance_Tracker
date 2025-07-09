@@ -110,7 +110,9 @@ while on_off:
             except NameError:
                 print("\nYou haven't chosen any file yet.")
         elif modify_choice == 3:
-            pass
+            index_list2 = row_index_list(dataframe)
+            row_choice2 = ask_choice(index_list2)
+            dataframe = delete_transaction(dataframe,row_choice2)
         while next_menu() == "no":
             pass
         clear_console()
