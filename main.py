@@ -143,3 +143,6 @@ while on_off:
         clear_console()
         print()
         print("=" * 20 + " THANK YOU " + "=" * 20)
+
+
+# BYE BYE
