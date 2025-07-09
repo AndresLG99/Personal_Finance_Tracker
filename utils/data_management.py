@@ -23,6 +23,10 @@ analyze_menu_options = ["Analyze spending by category",
                          "Analyze average monthly spending",
                          "Analyze top spending category"]
 
+visualize_menu_options = ["Monthly spending trend",
+                          "Spending by category",
+                          "Percentage distribution"]
+
 current_path = os.path.abspath(__file__)
 base_dir = os.path.dirname(os.path.dirname(current_path))
 directory = os.path.join(base_dir, "data")
