@@ -66,7 +66,7 @@ def edit_transaction(df, row_index, column_name, new_value):
     return df
 
 def delete_transaction(df, index):
-    df = df.drop([index, index + 1])
+    df = df.drop([index, index])
     return df
 
 def save_csv(df, filename):
