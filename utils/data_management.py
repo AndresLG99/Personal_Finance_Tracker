@@ -1,6 +1,7 @@
 # IMPORTS
 import pandas as pd
 import os
+from _datetime import datetime
 
 # INITIAL DATA STRUCTURES AND VARIABLES
 main_menu_options = ["Import",
@@ -57,8 +58,8 @@ def add_transaction(df, param1, param2, param3, param4, param5):
                        "Description": param3,
                        "Amount": param4,
                        "Type": param5}
-    df.append(new_transaction)
-    return df
+    df_new = df.loc[len(df)] = new_transaction
+    return df_new
 
 def edit_transaction(df, row, column, new_value):
     df.loc[row, column] = new_value
@@ -69,5 +70,22 @@ def delete_transaction(df, index):
     return df
 
 def save_csv(df, filename):
-    df.to_csv(filename, index=False)
+    df.to_csv(f"{directory}\\{filename}", index=False)
     print("File saved successfully!")
+
+def ask_date():
+    while True:
+        user_input = input("Enter the Date (YYYY-MM-DD): ")
+        try:
+            date = datetime.strptime(user_input, "%Y-%m-%d")
+            return date.date()
+        except ValueError:
+            print("Invalid date format. Please try again.")
+
+def ask_params():
+    param1 = ask_date()
+    param2 = input("Enter the Category: ")
+    param3 = input("Enter the Description: ")
+    param4 = input("Enter the Amount: ")
+    param5 = input("Enter the Type: ")
+    return param1, param2, param3, param4, param5
