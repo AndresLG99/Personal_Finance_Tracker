@@ -1,11 +1,6 @@
-
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-
-from mpl_toolkits.mplot3d.proj3d import rotation_about_vector
-
 
 # Monthly Spending Trend
 def monthly_spending_trend(df):
@@ -21,11 +16,6 @@ def monthly_spending_trend(df):
     plt.ylabel("Total Spending")
     plt.title("Monthly Spending")
     plt.show()
-    return monthly_spending
-
-result = monthly_spending_trend(df)
-print(result)
-
 
 #Spending by category
 def category_spending_trend(df):
@@ -39,10 +29,6 @@ def category_spending_trend(df):
     plt.ylabel("Category")
     plt.tight_layout()
     plt.show()
-    return category_spending
-
-result = category_spending_trend(df)
-print(result)
 
 #Percentage Distribution
 def category_spending_pct(df):
@@ -54,8 +40,4 @@ def category_spending_pct(df):
     category_spending_pct.plot(kind="pie",autopct="%1.1f%%",title="Spending Distribution by Category",ylabel="")
     plt.tight_layout()
     plt.show()
-    return category_spending_pct
-
-result = category_spending_pct(df)
-print(result)
 
