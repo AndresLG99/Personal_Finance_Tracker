@@ -3,6 +3,7 @@ import os
 from utils.data_management import *
 from utils.data_analysis import *
 from utils.budget_management import *
+from utils.data_visualization import *
 
 # INITIAL DATA STRUCTURES AND VARIABLES
 on_off = True
@@ -157,7 +158,23 @@ while on_off:
         print("-" * 20 + " Visualize Menu " + "-" * 20)
         display_menu(visualize_menu_options)
         visualize_choice = ask_choice(visualize_menu_options)
-        # MISSING CODE
+        if visualize_choice == 1:
+            try:
+                monthly_spending_trend(dataframe)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
+
+        elif visualize_choice == 2:
+            try:
+                category_spending_trend(dataframe)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
+
+        elif visualize_choice == 3:
+            try:
+                category_spending_pct(dataframe)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
 
         while next_menu() == "no":
             pass
