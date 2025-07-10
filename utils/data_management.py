@@ -96,7 +96,7 @@ def ask_params():
     param2 = input("Enter the Category: ").capitalize()
     param3 = input("Enter the Description: ").capitalize()
     param4 = float(input("Enter the Amount: "))
-    param5 = input("Enter the Type: ").capitalize()
+    param5 = input("Enter the Type (Income/Expense): ").capitalize()
     return param1, param2, param3, param4, param5
 
 def row_index_list(df):

@@ -6,11 +6,12 @@ def analyze_spending_by_category(df):
     print("\n--- Total Spending by Category ---")
     print(category_summary.to_string(index=False, float_format='%.2f'))
     print("----------------------------------")
-    print("Total:    %.2f" % category_summary['Amount'].sum())
     expense_total = df.loc[df['Type']=='Expense', 'Amount'].sum()
     income_total  = df.loc[df['Type']=='Income' , 'Amount'].sum()
-    print(" Expense: %.2f" % expense_total)
-    print(" Income:  %.2f" % income_total)
+    liquidity = income_total - expense_total
+    print("Liquidity:   %.2f" % liquidity)
+    print("Expense:     %.2f" % expense_total)
+    print("Income:      %.2f" % income_total)
     print("")
 
 # 2. Analyze average monthly spending
@@ -26,11 +27,11 @@ def analyze_average_monthly_spending(df):
     print("\n---- Average Monthly Spending ---")
     print("Average Monthly Expense")
     for m, row in monthly_summary.iterrows():
-        m_str = m.to_timestamp().strftime('%b')
+        m_str = m.to_timestamp().strftime('%b %Y')
         print(f"{m_str}:\t{row.get('Expense', 0):.2f}")
     print("\nAverage Monthly Income")
     for m, row in monthly_summary.iterrows():
-        m_str = m.to_timestamp().strftime('%b')
+        m_str = m.to_timestamp().strftime('%b %Y')
         print(f"{m_str}:\t{row.get('Income', 0):.2f}")
     print("")
 
@@ -59,7 +60,7 @@ def analyze_top_spending_category(df):
         _, top_cat = grp.idxmax()
         top_amt = grp.max()
         label = mon.to_timestamp().strftime('%b %Y')
-        print(f"{label}\t{top_cat} with {top_amt:.2f}")
+        print(f"{label}:\t{top_cat} with {top_amt:.2f}")
     # monthly_inc = (
     #     df[df['Type'] == 'Income']
     #     .groupby(['Month', 'Category'])['Amount']

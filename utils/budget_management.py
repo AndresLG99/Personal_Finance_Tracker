@@ -70,7 +70,7 @@ def show_budget_vs_real(df,list1, list2):
     unique_categories = df["Category"].unique()
 
     for i, item in enumerate(unique_categories):
-        print(f"{i + 1}. {item}:\nBudget: ${list1[i]} | Real: ${list2[i]}")
+        print(f"{i + 1}. {item}:\nBudget: ${list1[i]:.2f} | Real: ${list2[i]:.2f}")
 
         if list1[i] * 0.8 <= list2[i] < list1[i]:
             print("WARNING: You are over 80% of the budget.\n")
@@ -82,7 +82,7 @@ def show_budget_vs_real(df,list1, list2):
             print("HEALTHY: You are under 80% of the budget.\n")
 
     x, y = income_vs_expense_totals(df)
-    print(f"Overall:\nIncome: ${x} | Expense: ${y}")
+    print(f"Overall:\nIncome: ${x:.2f} | Expense: ${y:.2f}")
     if x < y:
         print(f"ALERT: You have spent {round(((y - x) / y) * 100, 2)}% more than you have earned.")
     else:
