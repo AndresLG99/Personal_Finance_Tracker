@@ -49,7 +49,6 @@ python main.py
 personal-finance-tracker/
 ├── data/                   # Sample or user-uploaded CSV files
 ├── utils/                  # Helper functions
-├── visuals/                # Generated graphs
 ├── main.py                 # Entry point
 ├── requirements.txt        # Python dependencies
 └── README.md               # Project info
@@ -63,10 +62,9 @@ Date,Category,Description,Amount
 
 ## 📈 Sample Visualizations
 
-- Monthly Spending Bar Chart
-- Top 5 Spending Categories Pie Chart
-
-All graphs are automatically generated and saved in the visuals/ folder.
+- Monthly spending trend (line chart)
+- Spending by category (bar chart)
+- Percentage distribution (pie chart)
 
 ## 🤝 Contributing
 
