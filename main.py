@@ -35,8 +35,7 @@ def ask_initial_date():
         initial_date = input("Enter the Initial Date (YYYY-MM-DD): ")
         try:
             date = datetime.strptime(initial_date, "%Y-%m-%d")
-            date = date.date()
-            return date.strftime("%Y-%m-%d")
+            return date.date()
         except ValueError:
             print("Invalid date format. Please try again.")
 
@@ -45,13 +44,13 @@ def ask_end_date():
         end_date = input("Enter the End Date (YYYY-MM-DD): ")
         try:
             date = datetime.strptime(end_date, "%Y-%m-%d")
-            date = date.date()
-            return date.strftime("%Y-%m-%d")
+            return date.date()
         except ValueError:
             print("Invalid date format. Please try again.")
 
 # MAIN STRUCTURE
 user_name = user_name()
+clear_console()
 print(f"Welcome to your Personal Finance Tracker {user_name.capitalize()}")
 
 while on_off:
