@@ -15,7 +15,7 @@ visualize_budget_menu_options = ["Monthly income vs. spending",
 
 # FUNCTIONS
 def income_vs_expense_graph(df):
-    df["Month"] = df["Date"].dt.to_period("M")
+    df["Month"] = pd.to_datetime(df["Date"]).dt.to_period("M")
     monthly_totals = df.groupby(["Month", "Type"])["Amount"].sum().unstack(fill_value=0)
     monthly_totals.plot(kind='line', marker='o', figsize=(10, 6))
     plt.title("Monthly Income vs Expense")
