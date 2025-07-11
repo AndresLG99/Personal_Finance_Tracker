@@ -29,7 +29,7 @@ def analyze_average_monthly_spending(df):
     all_months = df["Month"].unique()
     all_months = sorted(all_months)
 
-    monthly_expenses = monthly_expenses.reindex(all_months, fill_value=0)
+    monthly_expense = monthly_expenses.reindex(all_months, fill_value=0)
     monthly_income = monthly_income.reindex(all_months, fill_value=0)
 
     average_monthly_expense = monthly_expenses.mean().round(2)
@@ -40,6 +40,14 @@ def analyze_average_monthly_spending(df):
     print("\n---- Average Monthly Income ---")
     print(f"{average_monthly_income:.2f}")
     print("")
+
+    summary_df = pd.DataFrame({
+    "Month": [m.strftime("%b %Y") for m in all_months],
+    "Average Expense": monthly_expense.values,
+    "Average Income ": monthly_income.values
+    })
+    print("--- Average Expense and Income per Month ---")
+    print(summary_df.to_string(index=False))
 
 # 3. Analyze top spending category
 def analyze_top_spending_category(df):
