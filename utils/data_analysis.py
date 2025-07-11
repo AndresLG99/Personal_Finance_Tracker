@@ -13,7 +13,7 @@ def analyze_spending_by_category(df):
     print(f"Liquidity:    {liquidity:.2f}")
     print(f"Expense:     {expense_total:.2f}")
     print(f"Income:      {income_total:.2f}")
-    print("")
+    print()
 
 # 2. Analyze average monthly spending
 def analyze_average_monthly_spending(df):
@@ -39,7 +39,7 @@ def analyze_average_monthly_spending(df):
     print(f"{average_monthly_expense:.2f}")
     print("\n---- Average Monthly Income ---")
     print(f"{average_monthly_income:.2f}")
-    print("")
+    print()
 
     summary_df = pd.DataFrame({
     "Month": [m.strftime("%b %Y") for m in all_months],
@@ -48,6 +48,7 @@ def analyze_average_monthly_spending(df):
     })
     print("--- Average Expense and Income per Month ---")
     print(summary_df.to_string(index=False))
+    print()
 
 # 3. Analyze top spending category
 def analyze_top_spending_category(df):
