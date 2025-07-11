@@ -25,8 +25,8 @@ def category_spending_trend(df):
 
     category_spending.plot(kind="bar",title="Spending by Category")
     plt.xticks(rotation=45)
-    plt.xlabel("Total Spending")
-    plt.ylabel("Category")
+    plt.xlabel("Category")
+    plt.ylabel("Total Spending")
     plt.tight_layout()
     plt.show()
 

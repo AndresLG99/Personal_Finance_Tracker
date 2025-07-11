@@ -5,35 +5,50 @@ def analyze_spending_by_category(df):
     category_summary = df.groupby('Category')['Amount'].sum().reset_index()
     print("\n--- Total Spending by Category ---")
     print(category_summary.to_string(index=False, float_format='%.2f'))
-    print("----------------------------------")
-    expense_total = df.loc[df['Type']=='Expense', 'Amount'].sum()
-    income_total  = df.loc[df['Type']=='Income' , 'Amount'].sum()
+
+    expense_total = df[df["Type"] == "Expense"]["Amount"].sum()
+    income_total = df[df["Type"] == "Income"]["Amount"].sum()
     liquidity = income_total - expense_total
-    print("Liquidity:   %.2f" % liquidity)
-    print("Expense:     %.2f" % expense_total)
-    print("Income:      %.2f" % income_total)
-    print("")
+    print("----------------------------------")
+    print(f"Liquidity:    {liquidity:.2f}")
+    print(f"Expense:     {expense_total:.2f}")
+    print(f"Income:      {income_total:.2f}")
+    print()
 
 # 2. Analyze average monthly spending
 def analyze_average_monthly_spending(df):
     df['Date'] = pd.to_datetime(df['Date'])
     df['Month'] = df['Date'].dt.to_period('M')
-    monthly_summary = (
-        df
-        .groupby(['Month', 'Type'])['Amount']
-        .sum()
-        .unstack(fill_value=0)
-    )
-    print("\n---- Average Monthly Spending ---")
-    print("Average Monthly Expense")
-    for m, row in monthly_summary.iterrows():
-        m_str = m.to_timestamp().strftime('%b %Y')
-        print(f"{m_str}:\t{row.get('Expense', 0):.2f}")
-    print("\nAverage Monthly Income")
-    for m, row in monthly_summary.iterrows():
-        m_str = m.to_timestamp().strftime('%b %Y')
-        print(f"{m_str}:\t{row.get('Income', 0):.2f}")
-    print("")
+
+    expense_df = df[df["Type"] == "Expense"]
+    income_df = df[df["Type"] == "Income"]
+
+    monthly_expenses = expense_df.groupby("Month")["Amount"].sum()
+    monthly_income = income_df.groupby("Month")["Amount"].sum()
+
+    all_months = df["Month"].unique()
+    all_months = sorted(all_months)
+
+    monthly_expense = monthly_expenses.reindex(all_months, fill_value=0)
+    monthly_income = monthly_income.reindex(all_months, fill_value=0)
+
+    average_monthly_expense = monthly_expenses.mean().round(2)
+    average_monthly_income = monthly_income.mean().round(2)
+
+    print("\n---- Average Monthly Expense ---")
+    print(f"{average_monthly_expense:.2f}")
+    print("\n---- Average Monthly Income ---")
+    print(f"{average_monthly_income:.2f}")
+    print()
+
+    summary_df = pd.DataFrame({
+    "Month": [m.strftime("%b %Y") for m in all_months],
+    "Average Expense": monthly_expense.values,
+    "Average Income ": monthly_income.values
+    })
+    print("--- Average Expense and Income per Month ---")
+    print(summary_df.to_string(index=False))
+    print()
 
 # 3. Analyze top spending category
 def analyze_top_spending_category(df):
@@ -57,19 +72,8 @@ def analyze_top_spending_category(df):
     )
     print("\nMonthly Top Expense by Category")
     for mon, grp in monthly_expense.groupby(level=0):
-        _, top_cat = grp.idxmax()
+        top_cat = grp.sort_values(ascending=False).index[0][1]
         top_amt = grp.max()
         label = mon.to_timestamp().strftime('%b %Y')
-        print(f"{label}:\t{top_cat} with {top_amt:.2f}")
-    # monthly_inc = (
-    #     df[df['Type'] == 'Income']
-    #     .groupby(['Month', 'Category'])['Amount']
-    #     .sum()
-    # )
-    # print("\nMonthly Top Income by Category")
-    # for mon, grp in monthly_inc.groupby(level=0):
-    #     _, top_cat = grp.idxmax()
-    #     top_amt = grp.max()
-    #     label = mon.to_timestamp().strftime('%b %Y')
-    #     print(f"{label}\t{top_cat} with {top_amt:.2f}")
+        print(f"{label:<12} {top_cat:<12} {top_amt:>10.2f}")
     print()
