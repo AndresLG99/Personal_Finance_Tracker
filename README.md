@@ -29,8 +29,7 @@ An interactive, text-based Python application that helps users manage and analyz
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/personal-finance-tracker.git
-cd personal-finance-tracker
+git clone [https://github.com/your-username/personal-finance-tracker.git](https://github.com/AndresLG99/Personal_Finance_Tracker.git)
 ```
 ### 2. Install Requirements
 
