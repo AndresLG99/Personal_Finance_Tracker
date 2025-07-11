@@ -46,7 +46,7 @@ def display_files():
     return files_list
 
 def open_csv(filename):
-    df = pd.read_csv(f"{directory}\\{filename}")
+    df = pd.read_csv(f"{directory}/{filename}")
     print("File loaded successfully!")
     return df
 
