@@ -23,28 +23,39 @@ def analyze_average_monthly_spending(df):
     expense_df = df[df["Type"] == "Expense"]
     income_df = df[df["Type"] == "Income"]
 
+    # Average monthly
+    # Sum per months
     monthly_expenses = expense_df.groupby("Month")["Amount"].sum()
     monthly_income = income_df.groupby("Month")["Amount"].sum()
-    all_months = df["Month"].unique()
-    all_months = sorted(all_months)
-    monthly_expense = monthly_expenses.reindex(all_months, fill_value=0)
+
+    # List all existing month and unique
+    all_months = sorted(df["Month"].unique())
+
+    # Fill missing month value with 0
+    monthly_expenses = monthly_expenses.reindex(all_months, fill_value=0)
     monthly_income = monthly_income.reindex(all_months, fill_value=0)
-    average_monthly_expense = monthly_expenses.mean().round(2)
-    average_monthly_income = monthly_income.mean().round(2)
+
+    # Average month with round two decimal
+    average_expense = monthly_expenses.mean().round(2)
+    average_income = monthly_income.mean().round(2)
 
     print("\n---- Average Monthly Expense ---")
-    print(f"{average_monthly_expense:.2f}")
+    print(f"{average_expense:.2f}")
     print("\n---- Average Monthly Income ---")
-    print(f"{average_monthly_income:.2f}")
+    print(f"{average_income:.2f}")
 
-    expense_stats = expense_df.groupby("Month")["Amount"].agg(["sum", "count"])
+    # Average per month
+    # Sum per month, count, and average
+    expense_stats = expense_df.groupby("Month")["Amount"].agg(sum="sum", count="count")
     expense_stats["avg_expense"] = (expense_stats["sum"] / expense_stats["count"]).round(2)
-    income_stats = income_df.groupby("Month")["Amount"].agg(["sum", "count"])
+    income_stats = income_df.groupby("Month")["Amount"].agg(sum="sum", count="count")
     income_stats["avg_income"] = (income_stats["sum"] / income_stats["count"]).round(2)
-    all_months = sorted(set(df["Month"]))
+
+    # List all existing month and unique
+    all_months = sorted(df["Month"].unique())
 
     print("\n--- Average Expense and Income per Month ---")
-    print(f"{'Month':<12} {'Avg Expense':>12} {'Avg Income':>12}")
+    print(f"{"Month":<12} {"Avg Expense":>12} {"Avg Income":>12}")
     for m in all_months:
         label = m.to_timestamp().strftime("%b %Y")
         avg_exp = expense_stats.loc[
