@@ -9,9 +9,9 @@ def analyze_spending_by_category(df):
     expense_total = df.loc[df['Type']=='Expense', 'Amount'].sum()
     income_total  = df.loc[df['Type']=='Income' , 'Amount'].sum()
     liquidity = income_total - expense_total
-    print("Liquidity:   %.2f" % liquidity)
-    print("Expense:     %.2f" % expense_total)
-    print("Income:      %.2f" % income_total)
+    print(f"Liquidity:    {liquidity:.2f}")
+    print(f"Expense:     {expense_total:.2f}")
+    print(f"Income:      {income_total:.2f}")
     print("")
 
 # 2. Analyze average monthly spending
@@ -28,11 +28,11 @@ def analyze_average_monthly_spending(df):
     print("Average Monthly Expense")
     for m, row in monthly_summary.iterrows():
         m_str = m.to_timestamp().strftime('%b %Y')
-        print(f"{m_str}:\t{row.get('Expense', 0):.2f}")
+        print(f"{m_str:<12} {row.get('Expense', 0):>10.2f}")
     print("\nAverage Monthly Income")
     for m, row in monthly_summary.iterrows():
         m_str = m.to_timestamp().strftime('%b %Y')
-        print(f"{m_str}:\t{row.get('Income', 0):.2f}")
+        print(f"{m_str:<12} {row.get('Income', 0):>10.2f}")
     print("")
 
 # 3. Analyze top spending category
@@ -60,16 +60,5 @@ def analyze_top_spending_category(df):
         _, top_cat = grp.idxmax()
         top_amt = grp.max()
         label = mon.to_timestamp().strftime('%b %Y')
-        print(f"{label}:\t{top_cat} with {top_amt:.2f}")
-    # monthly_inc = (
-    #     df[df['Type'] == 'Income']
-    #     .groupby(['Month', 'Category'])['Amount']
-    #     .sum()
-    # )
-    # print("\nMonthly Top Income by Category")
-    # for mon, grp in monthly_inc.groupby(level=0):
-    #     _, top_cat = grp.idxmax()
-    #     top_amt = grp.max()
-    #     label = mon.to_timestamp().strftime('%b %Y')
-    #     print(f"{label}\t{top_cat} with {top_amt:.2f}")
+        print(f"{label:<12} {top_cat:<12} {top_amt:>10.2f}")
     print()
