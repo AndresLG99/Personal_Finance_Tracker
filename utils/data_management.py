@@ -46,7 +46,7 @@ def display_files():
     return files_list
 
 def open_csv(filename):
-    df = pd.read_csv(f"{directory}\\{filename}", parse_dates=["Date"])
+    df = pd.read_csv(f"{directory}/{filename}")
     print("File loaded successfully!")
     return df
 
@@ -54,8 +54,8 @@ def show_all_transactions(df):
     print(df)
 
 def show_filtered_transactions(df, init_date, end_date):
-    df2 = df[df["Date"] >= init_date]
-    df3 = df2[df2["Date"] <= end_date]
+    df2 = df[df["Date"] >= str(init_date)]
+    df3 = df2[df2["Date"] <= str(end_date)]
     print(df3)
 
 def add_transaction(df, param1, param2, param3, param4, param5):
@@ -92,11 +92,11 @@ def ask_date():
             print("Invalid date format. Please try again.")
 
 def ask_params():
-    param1 = ask_date()
-    param2 = input("Enter the Category: ")
-    param3 = input("Enter the Description: ")
-    param4 = input("Enter the Amount: ")
-    param5 = input("Enter the Type: ")
+    param1 = str(ask_date())
+    param2 = input("Enter the Category: ").capitalize()
+    param3 = input("Enter the Description: ").capitalize()
+    param4 = float(input("Enter the Amount: "))
+    param5 = input("Enter the Type (Income/Expense): ").capitalize()
     return param1, param2, param3, param4, param5
 
 def row_index_list(df):

@@ -19,7 +19,6 @@ def analyze_spending_by_category(df):
 def analyze_average_monthly_spending(df):
     df['Date'] = pd.to_datetime(df['Date'])
     df['Month'] = df['Date'].dt.to_period('M')
-
     expense_df = df[df["Type"] == "Expense"]
     income_df = df[df["Type"] == "Income"]
 
