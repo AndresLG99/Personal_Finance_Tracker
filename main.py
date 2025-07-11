@@ -3,6 +3,7 @@ import os
 from utils.data_management import *
 from utils.data_analysis import *
 from utils.budget_management import *
+from utils.data_visualization import *
 
 # INITIAL DATA STRUCTURES AND VARIABLES
 on_off = True
@@ -35,8 +36,7 @@ def ask_initial_date():
         initial_date = input("Enter the Initial Date (YYYY-MM-DD): ")
         try:
             date = datetime.strptime(initial_date, "%Y-%m-%d")
-            date = date.date()
-            return date.strftime("%Y-%m-%d")
+            return date.date()
         except ValueError:
             print("Invalid date format. Please try again.")
 
@@ -45,13 +45,13 @@ def ask_end_date():
         end_date = input("Enter the End Date (YYYY-MM-DD): ")
         try:
             date = datetime.strptime(end_date, "%Y-%m-%d")
-            date = date.date()
-            return date.strftime("%Y-%m-%d")
+            return date.date()
         except ValueError:
             print("Invalid date format. Please try again.")
 
 # MAIN STRUCTURE
 user_name = user_name()
+clear_console()
 print(f"Welcome to your Personal Finance Tracker {user_name.capitalize()}")
 
 while on_off:
@@ -158,7 +158,23 @@ while on_off:
         print("-" * 20 + " Visualize Menu " + "-" * 20)
         display_menu(visualize_menu_options)
         visualize_choice = ask_choice(visualize_menu_options)
-        # MISSING CODE
+        if visualize_choice == 1:
+            try:
+                monthly_spending_trend(dataframe)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
+
+        elif visualize_choice == 2:
+            try:
+                category_spending_trend(dataframe)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
+
+        elif visualize_choice == 3:
+            try:
+                category_spending_pct(dataframe)
+            except NameError:
+                print("\nYou haven't chosen any file yet.")
 
         while next_menu() == "no":
             pass
@@ -190,15 +206,24 @@ while on_off:
             visualize_budget_choice = ask_choice(visualize_budget_menu_options)
 
             if visualize_budget_choice == 1:
-                income_vs_expense_graph(dataframe)
+                try:
+                    income_vs_expense_graph(dataframe)
+                except NameError:
+                    print("\nYou haven't chosen any file yet.")
 
             elif visualize_budget_choice == 2:
-                cats_list = income_vs_expense_cats(dataframe)
-                budget_vs_real_graph(dataframe, bud_list, cats_list)
+                try:
+                    cats_list = income_vs_expense_cats(dataframe)
+                    budget_vs_real_graph(dataframe, bud_list, cats_list)
+                except NameError:
+                    print("\nYou haven't chosen any file yet or haven't set up a budget.")
 
             elif visualize_budget_choice == 3:
-                cats_list = income_vs_expense_cats(dataframe)
-                percentage_distribution_graph(dataframe, cats_list)
+                try:
+                    cats_list = income_vs_expense_cats(dataframe)
+                    percentage_distribution_graph(dataframe, cats_list)
+                except NameError:
+                    print("\nYou haven't chosen any file yet.")
 
         while next_menu() == "no":
             pass
